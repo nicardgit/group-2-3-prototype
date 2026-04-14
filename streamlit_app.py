@@ -308,59 +308,75 @@ def chat_exchange(pairs, height=600):
 
 # --- ABOVEFOLD ---
 
-st.markdown(f"""
-    <style>
-    #video-container {{
-        position: relative;
-        width: 100vw !important;
-        height: 100vh;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-left: calc(-50vw + 50%) !important;
-    }}
+components.html(f"""
+<style>
+  #hero-container {{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }}
+  #hero-bg {{
+    position: absolute;
+    inset: 0;
+    background-image: url('data:image/jpeg;base64,{hero_img}');
+    background-size: cover;
+    background-position: center;
+    transform: scale(1);
+    transition: transform 0.1s linear;
+    z-index: 0;
+  }}
+  #hero-overlay {{
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1;
+  }}
+  #hero-content {{
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    padding: 2rem;
+    max-width: 800px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }}
+  h1 {{ font-size: 3.5rem; margin-bottom: 1rem; }}
+  h4 {{ font-size: 1.2rem; color: #ddd; font-weight: 400; }}
+  p  {{ font-size: 0.9rem; color: #aaa; }}
+</style>
 
-    #bg-video {{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        min-width: 100%;
-        min-height: 100%;
-        z-index: 0;
-        object-fit: cover;
-    }}
+<div id="hero-container">
+  <div id="hero-bg"></div>
+  <div id="hero-overlay"></div>
+  <div id="hero-content">
+    <h1>Can data centers be sustainable?</h1>
+    <h4>Many countries are scrambling to establish more data centers...</h4>
+    <p>by Nica Rhiana Hanopol, Vadim Martschenko, and Lara Zofio</p>
+  </div>
+</div>
 
-    #scroll-indicator {{
-        position: absolute;
-        bottom: 2rem;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 2;
-        color: white;
-        font-size: 0.85rem;
-        font-family: Helvetica, sans-serif;
-        text-align: center;
-        animation: bounce 2s infinite;
-    }}
+<script>
+  // Parallax + fade on scroll
+  window.addEventListener('scroll', () => {{
+    const scrollY = window.scrollY;
+    const hero   = document.getElementById('hero-container');
+    const bg     = document.getElementById('hero-bg');
+    const content = document.getElementById('hero-content');
+    const heroH  = hero.offsetHeight;
+    const progress = Math.min(scrollY / heroH, 1); // 0 → 1
 
-    @keyframes bounce {{
-        0%, 100% {{ transform: translateX(-50%) translateY(0); }}
-        50% {{ transform: translateX(-50%) translateY(-10px); }}
-    }}
-    </style>
+    // Parallax: background moves slower than scroll
+    bg.style.transform = `scale(1.1) translateY(${{scrollY * 0.3}}px)`;
 
-    <div id="video-container">
-        <video id="bg-video" autoplay muted loop playsinline>
-            <source src="data:video/mp4;base64,{video_base64}" type="video/mp4">
-        </video>
-        <div id="scroll-indicator">
-            ↓ scroll to read
-        </div>
-    </div>
-
-""", unsafe_allow_html=True)
+    // Fade + rise text out as user scrolls
+    content.style.opacity  = 1 - progress * 1.5;
+    content.style.transform = `translateY(${{-scrollY * 0.2}}px)`;
+  }});
+</script>
+""", height=600, scrolling=False)
 
 # -- TITLE AND AUTHORS --
 st.markdown(f"""
