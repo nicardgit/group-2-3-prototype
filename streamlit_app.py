@@ -493,7 +493,7 @@ components.html(f"""
     {html_content}
 """, height=700, scrolling=True)
 st.markdown("</div>", unsafe_allow_html=True)
-
+st.caption("Water Stress Levels (in %); > 20% = stress threshold")
 
 st.markdown("<p>Data centers have emerged as the latest threat to already strained water supplies, increasing in complexity, size, and number to meet the surging demand for generative AI.</p>", unsafe_allow_html=True)
 
