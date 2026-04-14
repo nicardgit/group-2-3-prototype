@@ -308,75 +308,59 @@ def chat_exchange(pairs, height=600):
 
 # --- ABOVEFOLD ---
 
-components.html(f"""
-<style>
-  #hero-container {{
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }}
-  #hero-bg {{
-    position: absolute;
-    inset: 0;
-    background-image: url('data:image/jpeg;base64,{hero_img}');
-    background-size: cover;
-    background-position: center;
-    transform: scale(1);
-    transition: transform 0.1s linear;
-    z-index: 0;
-  }}
-  #hero-overlay {{
-    position: absolute; inset: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 1;
-  }}
-  #hero-content {{
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    color: white;
-    padding: 2rem;
-    max-width: 800px;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }}
-  h1 {{ font-size: 3.5rem; margin-bottom: 1rem; }}
-  h4 {{ font-size: 1.2rem; color: #ddd; font-weight: 400; }}
-  p  {{ font-size: 0.9rem; color: #aaa; }}
-</style>
+st.markdown(f"""
+    <style>
+    #video-container {{
+        position: relative;
+        width: 100vw !important;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: calc(-50vw + 50%) !important;
+    }}
 
-<div id="hero-container">
-  <div id="hero-bg"></div>
-  <div id="hero-overlay"></div>
-  <div id="hero-content">
-    <h1>Can data centers be sustainable?</h1>
-    <h4>Many countries are scrambling to establish more data centers...</h4>
-    <p>by Nica Rhiana Hanopol, Vadim Martschenko, and Lara Zofio</p>
-  </div>
-</div>
+    #bg-video {{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%;
+        min-height: 100%;
+        z-index: 0;
+        object-fit: cover;
+    }}
 
-<script>
-  // Parallax + fade on scroll
-  window.addEventListener('scroll', () => {{
-    const scrollY = window.scrollY;
-    const hero   = document.getElementById('hero-container');
-    const bg     = document.getElementById('hero-bg');
-    const content = document.getElementById('hero-content');
-    const heroH  = hero.offsetHeight;
-    const progress = Math.min(scrollY / heroH, 1); // 0 → 1
+    #scroll-indicator {{
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        color: white;
+        font-size: 0.85rem;
+        font-family: Helvetica, sans-serif;
+        text-align: center;
+        animation: bounce 2s infinite;
+    }}
 
-    // Parallax: background moves slower than scroll
-    bg.style.transform = `scale(1.1) translateY(${{scrollY * 0.3}}px)`;
+    @keyframes bounce {{
+        0%, 100% {{ transform: translateX(-50%) translateY(0); }}
+        50% {{ transform: translateX(-50%) translateY(-10px); }}
+    }}
+    </style>
 
-    // Fade + rise text out as user scrolls
-    content.style.opacity  = 1 - progress * 1.5;
-    content.style.transform = `translateY(${{-scrollY * 0.2}}px)`;
-  }});
-</script>
-""", height=600, scrolling=False)
+    <div id="video-container">
+        <video id="bg-video" autoplay muted loop playsinline>
+            <source src="data:video/mp4;base64,{video_base64}" type="video/mp4">
+        </video>
+        <div id="scroll-indicator">
+            ↓ scroll to read
+        </div>
+    </div>
+
+""", unsafe_allow_html=True)
 
 # -- TITLE AND AUTHORS --
 st.markdown(f"""
@@ -479,6 +463,31 @@ st.markdown(f"""
         </div>
     </div>
 """, unsafe_allow_html=True)
+
+## -- SCROLL EFFECTS --
+components.html("""
+<script>
+  function applyScrollEffects() {
+    const scrollY = window.parent.scrollY;
+    const heroBg = window.parent.document.getElementById('hero-bg');
+    const heroContent = window.parent.document.getElementById('hero-content');
+
+    if (!heroBg || !heroContent) return;
+
+    const heroH = window.parent.document.getElementById('hero-container').offsetHeight;
+    const progress = Math.min(scrollY / heroH, 1);
+
+    // Parallax background
+    heroBg.style.transform = `scale(1.1) translateY(${scrollY * 0.3}px)`;
+
+    // Fade + float text out
+    heroContent.style.opacity = Math.max(1 - progress * 1.8, 0);
+    heroContent.style.transform = `translateY(${-scrollY * 0.2}px)`;
+  }
+
+  window.parent.addEventListener('scroll', applyScrollEffects);
+</script>
+""", height=0)
 
 st.divider()
 
@@ -662,7 +671,7 @@ st.divider()
 ## -- METHODOLOGY BOX -- ##
 
 st.markdown("<h1>METHODOLOGY</h1>", unsafe_allow_html=True)
-st.markdown("<p>Researchers used RStudio to run linear regression models with 2022 data from <a href='https://www.fao.org/aquastat/en' target='_blank'>UN AquaStat</a>, <a href='http://google.com/search?q=world+bank+gdp&oq=world+bank+gdp&gs_lcrp=EgZjaHJvbWUqCQgAEEUYOxiABDIJCAAQRRg7GIAEMgcIARAAGIAEMgcIAhAAGIAEMgcIAxAAGIAEMgcIBBAAGIAEMgcIBRAAGIAEMgcIBhAAGIAEMgcIBxAAGIAEMgcICBAAGIAEMgcICRAAGIAE0gEIMjM3MGowajSoAgCwAgA&sourceid=chrome&ie=UTF-8' target='_blank'>World Bank</a>, <a href='https://globaldatalab.org/geos/table/surfacetempyear/' target='_blank'>Global Data Lab</a>, and <a href='https://www.datacentermap.com/' target='_blank'>Data Center Map</a>. Water stress levels (%) and renewable energy share (%) were modeled as independent variables, while the counts of data centers was the dependent variable. GDP (US$) and temperature (in degree Celsius) were introduced as control variables.</p>", unsafe_allow_html=True)
+st.markdown("<p>Researchers used RStudio to run linear regression models with 20 data from <a href='https://www.fao.org/aquastat/en' target='_blank'>UN AquaStat</a>, <a href='http://google.com/search?q=world+bank+gdp&oq=world+bank+gdp&gs_lcrp=EgZjaHJvbWUqCQgAEEUYOxiABDIJCAAQRRg7GIAEMgcIARAAGIAEMgcIAhAAGIAEMgcIAxAAGIAEMgcIBBAAGIAEMgcIBRAAGIAEMgcIBhAAGIAEMgcIBxAAGIAEMgcICBAAGIAEMgcICRAAGIAE0gEIMjM3MGowajSoAgCwAgA&sourceid=chrome&ie=UTF-8' target='_blank'>World Bank</a>, <a href='https://globaldatalab.org/geos/table/surfacetempyear/' target='_blank'>Global Data Lab</a>, and <a href='https://www.datacentermap.com/' target='_blank'>Data Center Map</a>. Water stress levels (%) and renewable energy share (%) were modeled as independent variables, while the counts of data centers was the dependent variable. GDP (US$) and temperature (in degree Celsius) were introduced as control variables.</p>", unsafe_allow_html=True)
 
 # --- FOOTER ---
 st.divider()
