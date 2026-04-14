@@ -123,6 +123,14 @@ def get_base64_video(video_file):
 
 video_base64 = get_base64_video("hey_chat.mp4")
 
+# -- ADDING AN AUDIO --
+
+def get_base64_audio(audio_file):
+    with open(audio_file, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+ups_room = get_base64_audio("ups_room.mp3")
 
 # -- CHAT EXCHANGE --
 
@@ -388,6 +396,8 @@ st.markdown(f"""
         background-position: center;
         background-repeat: no-repeat;
         z-index: 0;
+        transform: scale(1.1);   # <-- add this line
+        will-change: transform;  # <-- and this for smoother animation
     }}
 
     #hero-overlay {{
@@ -563,6 +573,17 @@ chat_exchange([("What is Denmark doing exactly?",
 
         ("",
         "We enter a grey room full of server boxes and cables."),
+
+        ("",
+     f"""<div style="display:flex; align-items:center; gap:1rem; padding:1rem;
+                background:#f1f1f1; border-radius:18px; max-width:500px;">
+          <div style="width:40px; height:40px; border-radius:50%; background:#08306B;
+                      display:flex; align-items:center; justify-content:center;
+                      color:white; font-size:1.1rem; flex-shrink:0;">🤖</div>
+          <audio controls style="flex:1;">
+            <source src="data:audio/mp3;base64,{ups_room}" type="audio/mpeg">
+          </audio>
+        </div>"""),
 
         ("",
         "The low temperature in the room matches the cold weather outside. Looking down, we see small fans on the floor, which are producing cool air."),
