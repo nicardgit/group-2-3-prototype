@@ -614,7 +614,7 @@ chat_exchange([("Do water conditions explain where data centers are built?",
          "“The last thing that people look for is water because you can just cool without water,” says Niesel."),
 
         ("",
-        "Only in extreme cases of drought does water begin to matter, like in <a href='https://pulitzercenter.org/resource/how-we-investigated-backyard-ai-spain-chile-and-mexico' target='_blank'>Chile</a>, where data centers drained the entire water supply and did not return any economic benefits to the community."),
+        "Only in extreme cases of drought does water begin to matter, like in <a href='https://www.theguardian.com/global-development/2025/may/22/datacentre-drought-chinese-social-media-supercomputers-brazil-latin-america' target='_blank'>Latin America</a>, where data centers are reportedly depleting local water supplies while providing little to no economic benefit to nearby communities."),
 
         ("",
         "For Greenpeace, the AI boom is also an issue of power struggle. “Maybe some countries don't actually want that [many data centers], but then there's a fear of missing out on this great new technology,” Klapdor says."),
