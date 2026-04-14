@@ -111,7 +111,7 @@ def get_html_content(html_file, height=600):
     """
 
 plot_html = get_html_content("plot_2_interactive.html")
-water_stress_map_html = get_html_content("water_stress_map_interactive7.html")
+water_stress_map_html = get_html_content("water_stress_map_interactive6.html")
 data_center_predict = get_html_content("datacenter_water_consumption.html")
 
 # -- ADDING A VIDEO --
@@ -478,7 +478,7 @@ st.markdown("<p>Meanwhile, according to the United Nations (UN), the world is al
 
 # -- INSERT WATER STRESS MAP --
 st.markdown("<div class='viz-fullwidth'>", unsafe_allow_html=True)
-with open("water_stress_map_interactive7.html", "r") as f:
+with open("water_stress_map_interactive6.html", "r") as f:
     html_content = f.read()
 components.html(f"""
     <style>
