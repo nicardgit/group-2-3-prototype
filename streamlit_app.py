@@ -528,6 +528,10 @@ components.html(f"""
     {html_content}
 """, height=700, scrolling=True)
 st.markdown("</div>", unsafe_allow_html=True)
+st.markdown(
+    "<p style='font-size:0.7rem; color:#888; text-indent:0; text-align:center;'>Data Sources: UN FAO AquaStat (2022)</p>",
+    unsafe_allow_html=True
+)
 
 st.markdown("<p>Data centers have emerged as the latest threat to already strained water supplies, increasing in complexity, size, and number to meet the surging demand for generative AI.</p>", unsafe_allow_html=True)
 
@@ -550,6 +554,10 @@ components.html(f"""
     {html_content}
 """, height=700, scrolling=True)
 st.markdown("</div>", unsafe_allow_html=True)
+st.markdown(
+    "<p style='font-size:0.7rem; color:#888; text-indent:0; text-align:center;'>Data Sources: UN FAO AquaStat and Our World in Data (2022)</p>",
+    unsafe_allow_html=True
+)
 
 st.markdown("<p>We don't have to travel too far to find an example: Denmark actively markets itself as a country with “ideal conditions” for data centers, by running on more than 88.4% of renewable energy as of 2024, having average annual temperatures of around 10 degrees Celsius and abundant freshwater supplies that all facilitate cooling of these facilities.</p>", unsafe_allow_html=True)
 
@@ -575,17 +583,46 @@ chat_exchange([("What is Denmark doing exactly?",
         "We enter a grey room full of server boxes and cables."),
 
         ("",
-     f"""<div style="display:flex; align-items:center; gap:1rem; padding:1rem;
-                background:#f1f1f1; border-radius:18px; max-width:500px;">
-          <div style="width:40px; height:40px; border-radius:50%; background:#08306B;
-                      display:flex; align-items:center; justify-content:center;
-                      color:white; font-size:1.1rem; flex-shrink:0;">🤖</div>
-          <audio controls style="flex:1;">
-            <source src="data:audio/mp3;base64,{ups_room}" type="audio/mpeg">
-          </audio>
-        </div>"""),
+        f"<img src='data:image/jpeg;base64,{hero_img}' style='width:100%; border-radius:16px; margin-top:0.6rem;'/>"),
 
-        ("",
+         ], height=2300)
+
+## -- INSERT AUDIO -- 
+components.html(f"""
+<style>
+  #audio-bubble {{
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }}
+  #audio-bubble.visible {{
+    opacity: 1;
+    transform: translateY(0);
+  }}
+</style>
+
+<div id="audio-bubble" style="display:flex; align-items:center; padding:1rem;
+     background:#f1f1f1; border-radius:18px; max-width:500px; font-family:sans-serif;">
+  <audio controls style="width:100%;">
+    <source src="data:audio/mp3;base64,{ups_room}" type="audio/mp3">
+  </audio>
+</div>
+
+<script>
+  const bubble = document.getElementById('audio-bubble');
+  const observer = new IntersectionObserver((entries) => {{
+    entries.forEach(entry => {{
+      if (entry.isIntersecting) {{
+        bubble.classList.add('visible');
+        observer.unobserve(bubble);
+      }}
+    }});
+  }}, {{ threshold: 0.4 }});
+  observer.observe(bubble);
+</script>
+""", height=90, scrolling=False)
+        
+chat_exchange([("",
         "The low temperature in the room matches the cold weather outside. Looking down, we see small fans on the floor, which are producing cool air."),
 
         ("",
@@ -601,7 +638,7 @@ chat_exchange([("What is Denmark doing exactly?",
         "According to research from the <a href='https://arxiv.org/pdf/2304.03271' target='_blank'>University of California Riverside</a>, ten simple AI search queries can consume up to 500ml of water."),
 
         ("",
-         "Andersen explains that AI data centers cannot just use airflow to cool equipment. “You either have to cool it on the chip, on-chip cooling, or with what they call rear door cooling. Instead of having the heat exchanger far away, you put it directly in the back of the rack,” he adds."),
+         "Andersen explains that AI data centers cannot simply use airflow to cool equipment. “You either have to cool it on the chip, on-chip cooling, or with what they call rear door cooling. Instead of having the heat exchanger far away, you put it directly in the back of the rack,” he adds."),
 
         ("",
         "Bundled up in our coats, we follow him outside into a spring morning so cold and windy that the servers can cool themselves."),
@@ -618,25 +655,56 @@ chat_exchange([("What is Denmark doing exactly?",
         ("",
         "Using available data from the US, we see how the country's water consumption in data centers rose from 21.2 billion in 2014 to 66 billion in 2023. Projections range from 1.5 billion liters in an ideal sustainable scenario to exorbitant levels if inefficient systems and fossil-fuel reliance continue.")
 
-    ], height=3700)
+    ], height=2100)
 
 # -- INSERT DATACENTER WATER CONSUMPTION CHART --
-st.markdown("<div class='viz-fullwidth'>", unsafe_allow_html=True)
 with open("datacenter_water_consumption.html", "r") as f:
     html_content = f.read()
+
 components.html(f"""
-    <style>
-    html, body {{
-        margin: 0;
-        padding: 0;
-        width: 100vw;
-        max-width: 100vw;
-        overflow-x: hidden;
-    }}
-    </style>
-    {html_content}
-""", height=800, scrolling=True)
-st.markdown("</div>", unsafe_allow_html=True)
+<style>
+ #chart-wrapper {{
+  visibility: hidden;
+  transform: translateY(40px);
+}}
+
+#chart-wrapper.visible {{
+  visibility: visible;
+  transform: translateY(0);
+}}
+
+  html, body {{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }}
+</style>
+
+<div id="chart-wrapper">
+  {html_content}
+</div>
+
+<script>
+  const chart = document.getElementById('chart-wrapper');
+
+  const observer = new IntersectionObserver((entries) => {{
+    entries.forEach(entry => {{
+      if (entry.isIntersecting) {{
+        chart.classList.add('visible');
+
+        setTimeout(() => {{
+          window.dispatchEvent(new Event('resize'));
+        }}, 600);
+
+        observer.unobserve(chart);
+      }}
+    }});
+  }}, {{ threshold: 0.15 }});
+
+  observer.observe(chart);
+</script>
+""", height=700, scrolling=False)
 
 st.divider()
 
@@ -685,8 +753,9 @@ chat_exchange([("Do water conditions explain where data centers are built?",
         ("",
         "Still, Niesel notes that a fully sustainable data center remains difficult for the industry. And when it comes to AI, Klapdor asks, “To what extent do we need it?”"),
 
-   ], height=2350)
+   ], height=2070)
 
+st.caption("end chat", unsafe_allow_html=True)
 st.divider()
 
 ## -- METHODOLOGY BOX -- ##
