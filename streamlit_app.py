@@ -111,7 +111,7 @@ def get_html_content(html_file, height=600):
     """
 
 plot_html = get_html_content("plot_2_interactive.html")
-water_stress_map_html = get_html_content("water_stress_map_interactive6.html")
+water_stress_map_html = get_html_content("interactive_map_10.html")
 data_center_predict = get_html_content("datacenter_water_consumption.html")
 
 # -- ADDING A VIDEO --
@@ -478,7 +478,7 @@ st.markdown("<p>Meanwhile, according to the United Nations (UN), the world is al
 
 # -- INSERT WATER STRESS MAP --
 st.markdown("<div class='viz-fullwidth'>", unsafe_allow_html=True)
-with open("water_stress_map_interactive6.html", "r") as f:
+with open("interactive_map_10.html", "r") as f:
     html_content = f.read()
 components.html(f"""
     <style>
@@ -493,9 +493,7 @@ components.html(f"""
     {html_content}
 """, height=700, scrolling=True)
 st.markdown("</div>", unsafe_allow_html=True)
-st.markdown("<p style='font-size:9px;'>Water Stress Levels (in %); > 20% = stress threshold</p>",
-    unsafe_allow_html=True
-)
+
 st.markdown("<p>Data centers have emerged as the latest threat to already strained water supplies, increasing in complexity, size, and number to meet the surging demand for generative AI.</p>", unsafe_allow_html=True)
 
 st.markdown("<p>Driven by economic incentives, the protection of industry interests, and, ultimately, national digital sovereignty, the AI bubble is expanding, even where water conditions cannot support it. This calls for sustainable infrastructure, such as using renewable energy that consumes much less water to run a data center.</p>", unsafe_allow_html=True)
