@@ -79,6 +79,7 @@ cooling_img = get_base64_image("cooling_floor.jpg")
 yellow_hallway_img = get_base64_image("yellow_hallway.jpg")
 water_cooling_img = get_base64_image("water_cooling.jpg")
 hero_img = get_base64_image("ups_room.jpg")
+predict_map = get_base64_image("US.data.center.jpg")
 
 # -- ADDING AN HTML --
 
@@ -653,58 +654,14 @@ chat_exchange([("",
         "As data center operators and public institutions rarely disclose water and electricity consumption, precise comparisons between sustainable and traditional data centers remain difficult. The industry is opaque, and the conflict between demand and climate goals keeps estimations uncertain."),
 
         ("",
-        "Using available data from the US, we see how the country's water consumption in data centers rose from 21.2 billion in 2014 to 66 billion in 2023. Projections range from 1.5 billion liters in an ideal sustainable scenario to exorbitant levels if inefficient systems and fossil-fuel reliance continue.")
-
-    ], height=2100)
+        "Using available data from the US, we see how the country's water consumption in data centers rose from 21.2 billion in 2014 to 66 billion in 2023. Projections range from 1.5 billion liters in an ideal sustainable scenario to exorbitant levels if inefficient systems and fossil-fuel reliance continue."),
 
 # -- INSERT DATACENTER WATER CONSUMPTION CHART --
-with open("datacenter_water_consumption.html", "r") as f:
-    html_content = f.read()
 
-components.html(f"""
-<style>
- #chart-wrapper {{
-  visibility: hidden;
-  transform: translateY(40px);
-}}
+        ("",
+        f"<img src='data:image/jpeg;base64,{predict_map}' style='width:100%; border-radius:16px; margin-top:0.6rem;'/>"),
 
-#chart-wrapper.visible {{
-  visibility: visible;
-  transform: translateY(0);
-}}
-
-  html, body {{
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow-x: hidden;
-  }}
-</style>
-
-<div id="chart-wrapper">
-  {html_content}
-</div>
-
-<script>
-  const chart = document.getElementById('chart-wrapper');
-
-  const observer = new IntersectionObserver((entries) => {{
-    entries.forEach(entry => {{
-      if (entry.isIntersecting) {{
-        chart.classList.add('visible');
-
-        setTimeout(() => {{
-          window.dispatchEvent(new Event('resize'));
-        }}, 600);
-
-        observer.unobserve(chart);
-      }}
-    }});
-  }}, {{ threshold: 0.15 }});
-
-  observer.observe(chart);
-</script>
-""", height=700, scrolling=False)
+    ], height=2500)
 
 st.divider()
 
