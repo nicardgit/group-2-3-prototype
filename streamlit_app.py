@@ -590,9 +590,8 @@ components.html(f"""
     }}
     </style>
     {html_content}
-""", height=900, scrolling=True)
+""", height=800, scrolling=True)
 st.markdown("</div>", unsafe_allow_html=True)
-
 
 st.divider()
 
@@ -602,7 +601,7 @@ chat_exchange([("Do water conditions explain where data centers are built?",
         "Although countries such as Denmark argue that they may have the ideal conditions for minimizing the environmental impacts of data centers, an analysis of global data from 2022 found that these factors rarely determine where such facilities are actually built."),
 
         ("",
-         "Compiling data from UN Aquastat, we explored how water stress and renewable energy share relate to data center counts across countries. If these factors explained the latter, we would expect to see significantly more counts in countries with lower water stress and higher renewable energy."),
+         "Compiling data from UN Aquastat and Our World in Data, we explored how water stress and renewable energy share relate to data center counts across countries. If these factors explained the latter, we would expect to see significantly more counts in countries with lower water stress and higher renewable energy."),
 
         ("",
           "Neither of these factors, however, turned out to be the main driver. Instead,  our model showed that wealth is what matters most. For every doubling of gross domestic product (GDP), nearly 38 additional data centers were built. This is substantial, given that a country like Germany has a GDP more than ten times than that of Denmark."),
@@ -641,14 +640,14 @@ chat_exchange([("Do water conditions explain where data centers are built?",
         ("",
         "Still, Niesel notes that a fully sustainable data center remains difficult for the industry. And when it comes to AI, Klapdor asks, “To what extent do we need it?”"),
 
-   ], height=2450)
+   ], height=2400)
 
 st.divider()
 
 ## -- METHODOLOGY BOX -- ##
 
 st.markdown("<h1>METHODOLOGY</h1>", unsafe_allow_html=True)
-st.markdown("<p>Researchers used RStudio to run linear regression models with data from UN AquaStat, World Bank, Global Data Lab, and Data Center Map. Water stress levels (%) and renewable energy share (%) were modeled as independent variables, while the counts of data centers was the dependent variable. GDP (US$) and temperature (in degree Celsius) were introduced as control variables.</p>", unsafe_allow_html=True)
+st.markdown("<p>Researchers used RStudio to run linear regression models with data from <a href='https://www.fao.org/aquastat/en' target='_blank'>UN AquaStat</a>, <a href='http://google.com/search?q=world+bank+gdp&oq=world+bank+gdp&gs_lcrp=EgZjaHJvbWUqCQgAEEUYOxiABDIJCAAQRRg7GIAEMgcIARAAGIAEMgcIAhAAGIAEMgcIAxAAGIAEMgcIBBAAGIAEMgcIBRAAGIAEMgcIBhAAGIAEMgcIBxAAGIAEMgcICBAAGIAEMgcICRAAGIAE0gEIMjM3MGowajSoAgCwAgA&sourceid=chrome&ie=UTF-8' target='_blank'>World Bank</a>, <a href='https://globaldatalab.org/geos/table/surfacetempyear/' target='_blank'>Global Data Lab</a>, and <a href='https://www.datacentermap.com/' target='_blank'>Data Center Map</a>. Water stress levels (%) and renewable energy share (%) were modeled as independent variables, while the counts of data centers was the dependent variable. GDP (US$) and temperature (in degree Celsius) were introduced as control variables.</p>", unsafe_allow_html=True)
 
 # --- FOOTER ---
 st.divider()
