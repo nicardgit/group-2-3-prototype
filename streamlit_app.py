@@ -493,8 +493,9 @@ components.html(f"""
     {html_content}
 """, height=700, scrolling=True)
 st.markdown("</div>", unsafe_allow_html=True)
-st.caption("Water Stress Levels (in %); > 20% = stress threshold")
-
+st.markdown("<p style='font-size:9px;'>Water Stress Levels (in %); > 20% = stress threshold</p>",
+    unsafe_allow_html=True
+)
 st.markdown("<p>Data centers have emerged as the latest threat to already strained water supplies, increasing in complexity, size, and number to meet the surging demand for generative AI.</p>", unsafe_allow_html=True)
 
 st.markdown("<p>Driven by economic incentives, the protection of industry interests, and, ultimately, national digital sovereignty, the AI bubble is expanding, even where water conditions cannot support it. This calls for sustainable infrastructure, such as using renewable energy that consumes much less water to run a data center.</p>", unsafe_allow_html=True)
