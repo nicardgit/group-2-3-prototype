@@ -451,7 +451,7 @@ st.markdown(f"""
         left: 50%;
         transform: translateX(-50%);
         z-index: 2;
-        color: white;
+        color: black;
         font-size: 0.85rem;
         font-family: Helvetica, sans-serif;
         text-align: center;
