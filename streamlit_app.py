@@ -79,7 +79,7 @@ cooling_img = get_base64_image("cooling_floor.jpg")
 yellow_hallway_img = get_base64_image("yellow_hallway.jpg")
 water_cooling_img = get_base64_image("water_cooling.jpg")
 hero_img = get_base64_image("ups_room.jpg")
-predict_map = get_base64_image("US.data.center.jpg")
+predict_map = get_base64_image("predict_map.jpg")
 
 # -- ADDING AN HTML --
 
