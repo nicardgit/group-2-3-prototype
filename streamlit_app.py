@@ -722,4 +722,4 @@ st.markdown("<p>Researchers used RStudio to run linear regression models with 20
 # --- FOOTER ---
 st.divider()
 
-st.caption("This article was produced as part of the course Applied Quantitative Research and Journalism Practice at Aarhus University under the Erasmus Mundus Journalism, Media, and Globalization program. The data and code used in this project are available on our GitHub repository.", unsafe_allow_html=True)
+st.caption("This article was produced as part of the course Applied Quantitative Research and Journalism Practice at Aarhus University under the Erasmus Mundus MA Journalism, Media, and Globalization program. The data and code used in this project are available on our GitHub repository.", unsafe_allow_html=True)
