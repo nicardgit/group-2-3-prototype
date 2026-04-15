@@ -708,7 +708,7 @@ chat_exchange([("Do water conditions explain where data centers are built?",
         "With this, the EU aims to lessen its dependence on US tech giants by expanding its data center infrastructure, while maintaining strict sustainability standards."),
 
         ("",
-        "Still, Niesel notes that a fully sustainable data center remains difficult for the industry. And when it comes to AI, Klapdor asks, “To what extent do we need it?”"),
+        "Still, Niesel notes that a fully sustainable data center remains difficult to achieve. And when it comes to AI, Klapdor asks, “To what extent do we need it?”"),
 
    ], height=2070)
 
